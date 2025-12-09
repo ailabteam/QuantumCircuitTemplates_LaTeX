@@ -3,50 +3,36 @@
 import cirq
 import os
 import sys
-from sympy import Symbol 
 
+# Thiết lập đường dẫn để import plot_utility
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'utils')))
 from plot_utility import generate_latex_file
 
 def build_amplitude_encoding(n_qubits: int) -> cirq.Circuit:
     """
-    Tạo một mạch minh họa Amplitude Encoding sử dụng cổng trừu tượng.
-    Trong LaTeX, cổng này sẽ được hiển thị là 'P(x)' (Preparation).
+    Tạo một mạch minh họa Amplitude Encoding sử dụng cổng Unitary trống.
+    Phiên bản này sử dụng cách định nghĩa cổng tùy chỉnh đơn giản nhất.
     """
     qubits = cirq.LineQubit.range(n_qubits)
-    circuit = cirq.Circuit()
     
-    # 1. Định nghĩa cổng Trừu tượng (Abstract Gate)
-    # Chúng ta sử dụng một cổng tùy chỉnh (Custom Gate) để Cirq hiển thị nhãn mong muốn.
-    
-    # Sử dụng một cổng Unitary mà chúng ta định nghĩa nhãn
+    # Định nghĩa cổng đa qubit tùy chỉnh (chỉ cần __str__ để đặt tên)
     class PreparationGate(cirq.Gate):
-        def __init__(self, label):
-            super().__init__()
-            self.label = label
-            
-        def num_qubits(self):
+        def num_qubits(self): 
             return n_qubits
-            
-        def __str__(self):
-            # Tên sẽ được hiển thị trong LaTeX \gate{\text{...}}
-            return self.label 
+        
+        # Chuỗi này sẽ được hiển thị trong LaTeX \gate{\text{...}}
+        def __str__(self): 
+            return "P(x)" 
 
-    # Tên nhãn: P(\vec{x}) hoặc Amplitude Encoding
-    # Chúng ta dùng tên LaTeX thuần túy để tránh lỗi
-    encoder_label = f"P(x)" 
-    prep_gate = PreparationGate(encoder_label)
-    
-    # 2. Áp dụng cổng lên tất cả qubit
-    circuit.append(prep_gate.on(*qubits))
-    
-    # 3. Thêm một số cổng cơ bản khác để minh họa việc sử dụng sau đó
-    circuit.append(cirq.H.on(qubits[0]))
+    circuit = cirq.Circuit(
+        PreparationGate().on(*qubits),
+        cirq.H.on(qubits[0])
+    )
     
     return circuit
 
 if __name__ == '__main__':
-    N = 3 # 3 Qubits mã hóa vector 8 chiều
+    N = 3 # 3 Qubits 
     
     encoder_circuit = build_amplitude_encoding(n_qubits=N)
     
