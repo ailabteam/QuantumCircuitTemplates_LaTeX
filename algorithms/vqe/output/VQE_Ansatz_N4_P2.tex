@@ -1,0 +1,16 @@
+
+\documentclass[border=10pt]{standalone}
+\usepackage{qcircuit}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\begin{document}
+\Qcircuit @R=1em @C=0.75em {
+ \\
+ &\lstick{\text{q(0)}}& \qw&\gate{\text{Rz(Tz\_0\_0)}} \qw&\gate{\text{Rx(Tx\_0\_0)}} \qw&\control \qw    &\targ    \qw    &         \qw    &      \qw&\gate{\text{Z}} \qw&\gate{\text{Rz(Tz\_1\_0)}} \qw&\gate{\text{Rx(Tx\_1\_0)}} \qw&\control \qw    &         \qw    &         \qw    &\qw\\
+ &\lstick{\text{q(1)}}& \qw&\gate{\text{Rz(Tz\_0\_1)}} \qw&\gate{\text{Rx(Tx\_0\_1)}} \qw&\targ    \qw\qwx&\control \qw    &\targ    \qw    &      \qw&\gate{\text{Z}} \qw&\gate{\text{Rz(Tz\_1\_1)}} \qw&\gate{\text{Rx(Tx\_1\_1)}} \qw&\targ    \qw\qwx&\control \qw    &         \qw    &\qw\\
+ &\lstick{\text{q(2)}}& \qw&\gate{\text{Rz(Tz\_0\_2)}} \qw&\gate{\text{Rx(Tx\_0\_2)}} \qw&         \qw    &\targ    \qw\qwx&\control \qw    &\targ \qw&\gate{\text{Z}} \qw&\gate{\text{Rz(Tz\_1\_2)}} \qw&\gate{\text{Rx(Tx\_1\_2)}} \qw&         \qw    &\targ    \qw\qwx&\control \qw    &\qw\\
+ &\lstick{\text{q(3)}}& \qw&\gate{\text{Rz(Tz\_0\_3)}} \qw&\gate{\text{Rx(Tx\_0\_3)}} \qw&         \qw    &         \qw    &\targ    \qw\qwx&\targ \qw&\gate{\text{Z}} \qw&\gate{\text{Rz(Tz\_1\_3)}} \qw&\gate{\text{Rx(Tx\_1\_3)}} \qw&         \qw    &         \qw    &\targ    \qw\qwx&\qw\\
+ \\
+} 
+\end{document}
